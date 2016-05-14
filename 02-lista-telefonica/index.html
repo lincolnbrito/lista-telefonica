@@ -5,6 +5,7 @@
 	<title>Lista Telefônica</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-i18n/1.5.5/angular-locale_pt-br.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.js"></script>
 	<style>
 		.selecionado {
@@ -24,11 +25,11 @@
 				{nome: "Maria", telefone: "99999998", data: new Date(), cor: "#cdcdcd"},
 			];
 			$scope.operadoras = [
-				{nome:"Oi", codigo:31, categoria: "Celular"},
-				{nome:"Vivo", codigo:15, categoria: "Celular"},
-				{nome:"Tim", codigo:41, categoria: "Celular"},
-				{nome:"GTV", codigo:25, categoria: "Fixo"},
-				{nome:"Embratel", codigo:21, categoria: "Fixo"},
+				{nome:"Oi", codigo:31, categoria: "Celular", preco:2},
+				{nome:"Vivo", codigo:15, categoria: "Celular", preco:1},
+				{nome:"Tim", codigo:41, categoria: "Celular", preco:3},
+				{nome:"GTV", codigo:25, categoria: "Fixo", preco:4},
+				{nome:"Embratel", codigo:21, categoria: "Fixo", preco:5},
 			];
 
 			$scope.adicionarContato = function(contato){
@@ -80,7 +81,7 @@
 					<td>{{ contato.telefone }}</td>
 					<td>{{ contato.operadora.nome | lowercase }}</td>
 					<td><div style="width:20px; height:20px" ng-style="{'background-color': contato.cor}"></div></td>
-					<td>{{ contato.data | date:'dd/MM/yyyy hh:mm:ss' }}</td>
+					<td>{{ contato.data | date:'EEEE dd/MM/yyyy hh:mm:ss' }}</td>
 				</tr>
 			</table>	
 			
@@ -88,7 +89,7 @@
 			<form name="contatoForm">
 				<input class="form-control" placeholder="Nome" type="text" name="nome" ng-model="contato.nome" ng-required="true" ng-minlength="10" />
 				<input class="form-control" placeholder="Telefone" type="text" name="telefone" ng-model="contato.telefone" ng-required="true" ng-pattern="/^\d{4,5}-\d{4}$/" />
-				<select class="form-control" name="operadora" ng-model="contato.operadora" ng-options="operadora.nome group by operadora.categoria for operadora in operadoras" ng-required="true">
+				<select class="form-control" name="operadora" ng-model="contato.operadora" ng-options="operadora.nome + ' (' + (operadora.preco | currency ) + ')' for operadora in operadoras | orderBy:'nome'" ng-required="true">
 					<option value="">Selecione uma operadora</option>				
 				</select>
 				<button class="btn btn-lg btn-primary btn-block" ng-disabled="contatoForm.$invalid" ng-click="adicionarContato(contato)">Adicionar</button>
