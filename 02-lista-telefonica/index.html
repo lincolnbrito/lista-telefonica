@@ -52,6 +52,8 @@
 				});
 			};
 
+			$scope.criterioOrdenacao = 'nome';
+
 			$scope.ordenarPor = function(campo){
 				$scope.criterioDeOrdenacao = campo;
 				$scope.direcaoOrdenacao = !$scope.direcaoOrdenacao;
@@ -62,7 +64,7 @@
 <body ng-controller="listaTelefonicaCtrl">
 	<div class="container">
 		<div class="jumbotron">
-			<h3 ng-bind="app"></h3>			
+			<h1 ng-bind="app"></h1>			
 			
 			<input class="form-control" placeholder="O que você está buscando?" type="text" ng-model="busca" />
 			
@@ -110,7 +112,7 @@
 				</div>				
 			</form>
 		</div>
-		<!--<div ng-include="'footer.html'"></div>-->
+		<div ng-include="'footer.html'"></div>
 	</div>
 </body>
 </html>
