@@ -17,13 +17,16 @@
 	</style>
 	<script>
 		angular.module("listaTelefonica",["ngMessages"]);
-		angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function($scope){
+		angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function($scope, $http){
 			$scope.app = "Lista Telefônica";
-			$scope.contatos = [
-				{nome: "Pedro", telefone: "99999998", data: new Date(), cor: "blue"},
-				{nome: "Ana", telefone: "99999998", data: new Date(), cor: "yellow"},
-				{nome: "Maria", telefone: "99999998", data: new Date(), cor: "#cdcdcd"},
-			];
+			$scope.contatos = [];
+
+			var carregarContatos = function() {
+				$http.get('contatosBackend.php').success(function(data, status){
+					$scope.contatos = data;
+				});
+			};
+
 			$scope.operadoras = [
 				{nome:"Oi", codigo:31, categoria: "Celular", preco:2},
 				{nome:"Vivo", codigo:15, categoria: "Celular", preco:1},
@@ -58,6 +61,8 @@
 				$scope.criterioDeOrdenacao = campo;
 				$scope.direcaoOrdenacao = !$scope.direcaoOrdenacao;
 			};
+
+			carregarContatos();
 		});
 	</script>
 </head>
