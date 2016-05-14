@@ -21,7 +21,7 @@
 			$scope.contatos = [
 				{nome: "Pedro", telefone: "99999998", data: new Date(), cor: "blue"},
 				{nome: "Ana", telefone: "99999998", data: new Date(), cor: "yellow"},
-				{nome: "maria", telefone: "99999998", data: new Date(), cor: "#cdcdcd"},
+				{nome: "Maria", telefone: "99999998", data: new Date(), cor: "#cdcdcd"},
 			];
 			$scope.operadoras = [
 				{nome:"Oi", codigo:31, categoria: "Celular"},
@@ -35,7 +35,7 @@
 				$scope.contatos.push(angular.copy(contato));
 				delete $scope.contato;
 				$scope.contatoForm.$setPristine();
-			}
+			};
 
 			$scope.apagarContatos = function(contatos){
 				$scope.contatos = contatos.filter(function(contato){
@@ -43,13 +43,18 @@
 						return contato;
 					}					
 				});
-			}
+			};
 
 			$scope.isContatoSelecionado = function(contatos) {
 				return contatos.some(function(contato){
 					return contato.selecionado;
 				});
-			}
+			};
+
+			$scope.ordenarPor = function(campo){
+				$scope.criterioDeOrdenacao = campo;
+				$scope.direcaoOrdenacao = !$scope.direcaoOrdenacao;
+			};
 		});
 	</script>
 </head>
@@ -63,13 +68,13 @@
 			<table ng-show="contatos.length > 0" class="table table-bordered">
 				<tr>
 					<th></th>
-					<th>Nome</th>
-					<th>Telefone</th>				
+					<th><a href="" ng-click="ordenarPor('nome')">Nome</a></th>
+					<th><a href="" ng-click="ordenarPor('telefone')">Telefone</a></th>				
 					<th>Operadora</th>	
 					<th></th>
 					<th>Data</th>	
 				</tr>
-				<tr ng-class="{'selecionado negrito': contato.selecionado}" ng-repeat="contato in contatos | filter:busca">
+				<tr ng-class="{'selecionado negrito': contato.selecionado}" ng-repeat="contato in contatos | orderBy:criterioOrdenacao:direcaoOrdenacao |filter:{nome:busca}">
 					<td><input type="checkbox" ng-model="contato.selecionado" /></td>
 					<td>{{ contato.nome | uppercase }}</td>
 					<td>{{ contato.telefone }}</td>
