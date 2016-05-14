@@ -70,16 +70,22 @@
 					<td>{{ contato.operadora.nome }}</td>
 					<td><div style="width:20px; height:20px" ng-style="{'background-color': contato.cor}"></div></td>
 				</tr>
-			</table>
-			<input class="form-control" placeholder="Nome" type="text" ng-model="contato.nome">
-			<input class="form-control" placeholder="Telefone" type="text" ng-model="contato.telefone">
-			<select class="form-control" ng-model="contato.operadora" ng-options="operadora.nome group by operadora.categoria for operadora in operadoras">
-				<option value="">Selecione uma operadora</option>				
-			</select>
-			<button class="btn btn-lg btn-primary btn-block" ng-disabled="!contato.nome || !contato.telefone" ng-click="adicionarContato(contato)">Adicionar</button>
-			<button class="btn btn-lg btn-danger btn-block" ng-if="isContatoSelecionado(contatos)" ng-click="apagarContatos(contatos)">Apagar contatos</button>
+			</table>			
+
+			<form name="contatoForm">
+				<input class="form-control" placeholder="Nome" type="text" name="nome" ng-model="contato.nome" ng-required="true">
+				<input class="form-control" placeholder="Telefone" type="text" name="telefone" ng-model="contato.telefone" ng-required="true">
+				<select class="form-control" name="operadora" ng-model="contato.operadora" ng-options="operadora.nome group by operadora.categoria for operadora in operadoras" ng-required="true">
+					<option value="">Selecione uma operadora</option>				
+				</select>
+				<button class="btn btn-lg btn-primary btn-block" ng-disabled="contatoForm.$invalid" ng-click="adicionarContato(contato)">Adicionar</button>
+				<button class="btn btn-lg btn-danger btn-block" ng-if="isContatoSelecionado(contatos)" ng-click="apagarContatos(contatos)">Apagar contatos</button>
+			</form>
+			<div ng-show="contatoForm.nome.$invalid" class="alert alert-danger">Por favor preencha o nome</div>
+			<div ng-show="contatoForm.telefone.$invalid" class="alert alert-danger">Por favor preencha o telefone</div>
+			<div ng-show="contatoForm.operadora.$invalid" class="alert alert-danger">Por favor preencha a operadora</div>
 		</div>
-		<div ng-include="'footer.html'"></div>
+		<!--<div ng-include="'footer.html'"></div>-->
 	</div>
 </body>
 </html>
