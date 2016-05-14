@@ -33,15 +33,22 @@
 			$scope.adicionarContato = function(contato){
 				$scope.contatos.push(angular.copy(contato));
 				delete $scope.contato;
-			}		
+			}
+
+			$scope.apagarContatos = function(contatos){
+				$scope.contatos = contatos.filter(function(contato){
+					if(!contato.selecionado){
+						return contato;
+					}					
+				});
+			}
 		});
 	</script>
 </head>
 <body ng-controller="listaTelefonicaCtrl">
 	<div class="container">
 		<div class="jumbotron">
-			<h3 ng-bind="app"></h3>
-			{{contatos}}
+			<h3 ng-bind="app"></h3>			
 			<table class="table table-bordered">
 				<tr>
 					<th></th>
@@ -62,6 +69,7 @@
 				<option value="">Selecione uma operadora</option>				
 			</select>
 			<button class="btn btn-lg btn-primary btn-block" ng-disabled="!contato.nome || !contato.telefone" ng-click="adicionarContato(contato)">Adicionar</button>
+			<button class="btn btn-lg btn-danger btn-block" ng-click="apagarContatos(contatos)">Apagar contatos</button>
 		</div>
 	</div>
 </body>
