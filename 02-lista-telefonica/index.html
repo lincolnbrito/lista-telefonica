@@ -42,6 +42,7 @@
 					}					
 				});
 			}
+
 			$scope.isContatoSelecionado = function(contatos) {
 				return contatos.some(function(contato){
 					return contato.selecionado;
@@ -54,7 +55,7 @@
 	<div class="container">
 		<div class="jumbotron">
 			<h3 ng-bind="app"></h3>			
-			<table class="table table-bordered">
+			<table ng-show="contatos.length > 0" class="table table-bordered">
 				<tr>
 					<th></th>
 					<th>Nome</th>
@@ -66,7 +67,7 @@
 					<td><input type="checkbox" ng-model="contato.selecionado" /></td>
 					<td>{{ contato.nome }}</td>
 					<td>{{ contato.telefone }}</td>
-					<td>{{ contato.operadora }}</td>
+					<td>{{ contato.operadora.nome }}</td>
 					<td><div style="width:20px; height:20px" ng-style="{'background-color': contato.cor}"></div></td>
 				</tr>
 			</table>
@@ -76,7 +77,7 @@
 				<option value="">Selecione uma operadora</option>				
 			</select>
 			<button class="btn btn-lg btn-primary btn-block" ng-disabled="!contato.nome || !contato.telefone" ng-click="adicionarContato(contato)">Adicionar</button>
-			<button class="btn btn-lg btn-danger btn-block" ng-disabled="!isContatoSelecionado(contatos)" ng-click="apagarContatos(contatos)">Apagar contatos</button>
+			<button class="btn btn-lg btn-danger btn-block" ng-if="isContatoSelecionado(contatos)" ng-click="apagarContatos(contatos)">Apagar contatos</button>
 		</div>
 	</div>
 </body>
