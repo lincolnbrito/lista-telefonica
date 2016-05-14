@@ -18,9 +18,9 @@
 		angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function($scope){
 			$scope.app = "Lista Telefônica";
 			$scope.contatos = [
-				{nome: "Pedro", telefone: "99999998"},
-				{nome: "Ana", telefone: "99999998"},
-				{nome: "maria", telefone: "99999998"},
+				{nome: "Pedro", telefone: "99999998", cor: "blue"},
+				{nome: "Ana", telefone: "99999998", cor: "yellow"},
+				{nome: "maria", telefone: "99999998", cor: "#cdcdcd"},
 			];
 			$scope.operadoras = [
 				{nome:"Oi", codigo:31, categoria: "Celular"},
@@ -59,13 +59,15 @@
 					<th></th>
 					<th>Nome</th>
 					<th>Telefone</th>				
-					<th>Operadora</th>				
+					<th>Operadora</th>	
+					<th></th>			
 				</tr>
 				<tr ng-class="{'selecionado negrito': contato.selecionado}" ng-repeat="contato in contatos">
 					<td><input type="checkbox" ng-model="contato.selecionado" /></td>
 					<td>{{ contato.nome }}</td>
 					<td>{{ contato.telefone }}</td>
 					<td>{{ contato.operadora }}</td>
+					<td><div style="width:20px; height:20px" ng-style="{'background-color': contato.cor}"></div></td>
 				</tr>
 			</table>
 			<input class="form-control" placeholder="Nome" type="text" ng-model="contato.nome">
