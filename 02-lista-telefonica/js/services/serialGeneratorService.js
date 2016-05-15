@@ -1,5 +1,4 @@
 angular.module("listaTelefonica").provider("serialGenerator", function(config2){
-	console.log(config2.teste);
 	
 	var _length = 20;
 

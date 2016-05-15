@@ -16,6 +16,7 @@
 	<script src="js/config/serialGeneratorConfig.js"></script>
 	<script src="js/value/configValue.js"></script>
 	<script src="js/constant/config2Constant.js"></script>
+	<script src="js/filters/nameFilter.js"></script>
 </head>
 <body ng-controller="listaTelefonicaCtrl">
 	<div class="container">
@@ -39,7 +40,7 @@
 				<tr ng-class="{'selecionado negrito': contato.selecionado}" ng-repeat="contato in contatos | orderBy:criterioOrdenacao:direcaoOrdenacao |filter:{nome:busca}">
 					<td><input type="checkbox" ng-model="contato.selecionado" /></td>
 					<td>{{ contato.serial }}</td>
-					<td>{{ contato.nome | uppercase }}</td>
+					<td>{{ contato.nome | name }}</td>
 					<td>{{ contato.telefone }}</td>
 					<td>{{ contato.operadora.nome | lowercase }}</td>
 					<td><div style="width:20px; height:20px" ng-style="{'background-color': contato.cor}"></div></td>
