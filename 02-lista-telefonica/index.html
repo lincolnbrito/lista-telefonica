@@ -5,6 +5,7 @@
 	<title>Lista Telefônica</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 	<link rel="stylesheet" href="css/app.css">
+	<link rel="stylesheet" href="css/ui.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-i18n/1.5.5/angular-locale_pt-br.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.js"></script>	
@@ -18,16 +19,24 @@
 	<script src="js/constant/config2Constant.js"></script>
 	<script src="js/filters/nameFilter.js"></script>
 	<script src="js/filters/ellipsisFilter.js"></script>
+	<script src="js/directives/uiAlertDirective.js"></script>
 </head>
 <body ng-controller="listaTelefonicaCtrl">
 	<div class="container">
 		<div class="jumbotron">
 			<h1 ng-bind="app"></h1>			
+
+			<ui-alert title="Ops, aconteceu um problema!" message="error">
+				{{ error }}
+				<!-- Este escopo não é isolado, ele herda do escopo externo-->
+			</ui-alert>
 			
-			{{ message }}
+			<ui-alert title="Série sobre AngularJs">
+				Olá
+			</ui-alert>
 
 			<input class="form-control" placeholder="O que você está buscando?" type="text" ng-model="busca" />
-			
+			<hr />
 			<table ng-if="contatos.length > 0" class="table table-bordered">
 				<tr>
 					<th></th>
