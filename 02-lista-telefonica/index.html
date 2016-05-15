@@ -12,7 +12,10 @@
 	<script src="js/controllers/listaTelefonicaCtrl.js"></script>
 	<script src="js/services/contatosAPIService.js"></script>
 	<script src="js/services/operadorasAPIService.js"></script>
+	<script src="js/services/serialGeneratorService.js"></script>
+	<script src="js/config/serialGeneratorConfig.js"></script>
 	<script src="js/value/configValue.js"></script>
+	<script src="js/constant/config2Constant.js"></script>
 </head>
 <body ng-controller="listaTelefonicaCtrl">
 	<div class="container">
@@ -26,6 +29,7 @@
 			<table ng-if="contatos.length > 0" class="table table-bordered">
 				<tr>
 					<th></th>
+					<th>Serial</th>
 					<th><a href="" ng-click="ordenarPor('nome')">Nome</a></th>
 					<th><a href="" ng-click="ordenarPor('telefone')">Telefone</a></th>				
 					<th>Operadora</th>	
@@ -34,6 +38,7 @@
 				</tr>
 				<tr ng-class="{'selecionado negrito': contato.selecionado}" ng-repeat="contato in contatos | orderBy:criterioOrdenacao:direcaoOrdenacao |filter:{nome:busca}">
 					<td><input type="checkbox" ng-model="contato.selecionado" /></td>
+					<td>{{ contato.serial }}</td>
 					<td>{{ contato.nome | uppercase }}</td>
 					<td>{{ contato.telefone }}</td>
 					<td>{{ contato.operadora.nome | lowercase }}</td>
