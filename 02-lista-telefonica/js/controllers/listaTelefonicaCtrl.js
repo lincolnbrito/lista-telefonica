@@ -1,4 +1,4 @@
-angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function($scope, $http, contatosAPI){
+angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function($scope, contatosAPI, operadorasAPI){
 	$scope.app = "Lista Telefônica";
 	$scope.contatos = [];
 
@@ -11,7 +11,7 @@ angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function($sc
 	};
 
 	var carregarOperadoras = function() {
-		$http.get('operadorasBackend.php').success(function(data){
+		operadorasAPI.getOperadoras().success(function(data){
 			$scope.operadoras = data;
 		});
 	}
